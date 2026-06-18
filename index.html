@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلمي اليومي | Daily Learn Tracker</title>
+    <!-- Google Fonts: Tajawal for Arabic, Outfit for English & UI numbers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h2>Daily Learn</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-tab="dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                    <span>لوحة التحكم</span>
+                </button>
+                <button class="nav-item" data-tab="timeline">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>سجل التعلم</span>
+                </button>
+                <button class="nav-item" data-tab="roadmap">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+                    <span>خطة الدراسة 🛡️</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar">👨‍💻</div>
+                    <div class="user-info">
+                        <span class="user-name">البطل المستقبلي</span>
+                        <span class="user-role">Hacker in progress</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <div class="header-greeting">
+                    <h1 id="greeting-title">أهلاً بك، جاهز للتحدي اليوم؟</h1>
+                    <p class="current-date" id="live-date">خميس، 18 يونيو 2026</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="btn-add-log-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        <span>تسجيل درس جديد</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- TAB 1: Dashboard -->
+            <section class="tab-content active" id="tab-dashboard">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <!-- Streak Card -->
+                    <div class="stat-card streak-card">
+                        <div class="stat-icon flame">🔥</div>
+                        <div class="stat-info">
+                            <span class="stat-label">أيام الالتزام المتتالية</span>
+                            <h3 class="stat-val" id="val-streak">0</h3>
+                            <span class="stat-subtext" id="text-streak-feedback">ابدأ درسك الأول اليوم!</span>
+                        </div>
+                    </div>
+                    <!-- Total Hours Card -->
+                    <div class="stat-card hours-card">
+                        <div class="stat-icon clock">⏱️</div>
+                        <div class="stat-info">
+                            <span class="stat-label">إجمالي ساعات التعلم</span>
+                            <h3 class="stat-val" id="val-hours">0.0</h3>
+                            <span class="stat-subtext" id="text-hours-feedback">ساعة دراسية</span>
+                        </div>
+                    </div>
+                    <!-- Total Entries Card -->
+                    <div class="stat-card entries-card">
+                        <div class="stat-icon logs">📚</div>
+                        <div class="stat-info">
+                            <span class="stat-label">المواضيع المنجزة</span>
+                            <h3 class="stat-val" id="val-logs-count">0</h3>
+                            <span class="stat-subtext">درس تم تدوينه</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Interactive Section -->
+                <div class="dashboard-details">
+                    <!-- Heatmap / Activity Calendar -->
+                    <div class="detail-panel activity-heatmap">
+                        <div class="panel-header">
+                            <h3>خريطة النشاط والتعلم (آخر 30 يوم)</h3>
+                            <div class="heatmap-legend">
+                                <span>كسل</span>
+                                <span class="legend-box level-0"></span>
+                                <span class="legend-box level-1"></span>
+                                <span class="legend-box level-2"></span>
+                                <span class="legend-box level-3"></span>
+                                <span>شغف</span>
+                            </div>
+                        </div>
+                        <div class="heatmap-grid" id="heatmap-container">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Daily Goal & Category Distribution -->
+                    <div class="dashboard-side-grid">
+                        <!-- Daily Goal Progress -->
+                        <div class="detail-panel goal-panel">
+                            <h3>هدف الدراسة اليومي</h3>
+                            <div class="goal-progress-container">
+                                <div class="goal-ring-wrapper">
+                                    <svg class="progress-ring" width="120" height="120">
+                                        <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.06)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                                        <circle class="progress-ring__circle" id="goal-progress-circle" stroke="var(--primary-color)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                                    </svg>
+                                    <div class="goal-text">
+                                        <span id="goal-percent">0%</span>
+                                        <span class="goal-sub">من المذاكرة</span>
+                                    </div>
+                                </div>
+                                <div class="goal-info">
+                                    <p><span id="goal-completed-minutes">0</span> من أصل <span id="goal-target-minutes">240</span> دقيقة</p>
+                                    <span class="badge" id="goal-badge">لم يكتمل بعد</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Category breakdown -->
+                        <div class="detail-panel categories-breakdown-panel">
+                            <h3>المجالات المفضلة</h3>
+                            <div class="category-list" id="category-distribution-container">
+                                <!-- Populated by JS -->
+                                <p class="empty-state-text">لا توجد بيانات كافية لعرض المجالات.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Timeline / Logs List -->
+            <section class="tab-content" id="tab-timeline">
+                <div class="timeline-controls">
+                    <div class="search-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="search-input" placeholder="ابحث في الدروس والمواضيع...">
+                    </div>
+                    <div class="filter-controls">
+                        <select id="category-filter" class="form-control select-filter">
+                            <option value="all">كل التصنيفات</option>
+                            <option value="python">🐍 Python (برمجة)</option>
+                            <option value="linux">🐧 Linux (أنظمة)</option>
+                            <option value="network">🌐 Networks (شبكات)</option>
+                            <option value="security">🛡️ Cyber Security (أمن)</option>
+                            <option value="other">⚙️ أخرى</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="timeline-container" id="timeline-list">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- TAB 3: Study Roadmap -->
+            <section class="tab-content" id="tab-roadmap">
+                <div class="roadmap-dashboard-wrapper">
+                    <!-- Left Column: Study Schedule -->
+                    <div class="roadmap-column">
+                        <div class="detail-panel">
+                            <div class="panel-title-with-badge">
+                                <h3>الجدول اليومي المقترح (4 ساعات)</h3>
+                                <span class="badge badge-accent">مستمر</span>
+                            </div>
+                            <div class="schedule-timeline">
+                                <div class="schedule-item">
+                                    <div class="schedule-time">⏱️ 1.5 ساعة</div>
+                                    <div class="schedule-desc">
+                                        <h4>البرمجة بلغة بايثون 🐍</h4>
+                                        <p>دراسة المفاهيم البرمجية الأساسية وكتابة الأكواد بيدك (المدخل الأهم للأتمتة وصنع الأدوات).</p>
+                                    </div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-time">⏱️ 1.0 ساعة</div>
+                                    <div class="schedule-desc">
+                                        <h4>الأنظمة والشبكات 🐧🌐</h4>
+                                        <p>يوم لتعلم أوامر سطر الأوامر في Linux، ويوم لتعلم بروتوكولات وتوصيلات شبكات الحاسوب.</p>
+                                    </div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-time">⏱️ 1.0 ساعة</div>
+                                    <div class="schedule-desc">
+                                        <h4>التطبيق العملي والتحديات 🎮🛡️</h4>
+                                        <p>اللعب على منصة OverTheWire: Bandit لحل تحديات لينكس أو البدء بمسار TryHackMe للمبتدئين.</p>
+                                    </div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-time">⏱️ 30 دقيقة</div>
+                                    <div class="schedule-desc">
+                                        <h4>المراجعة وتلخيص اليوم 📝</h4>
+                                        <p>كتابة النقاط الأساسية التي تعلمتها هنا في التطبيق لتثبيتها في عقلك.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Roadmap Phases -->
+                    <div class="roadmap-column">
+                        <div class="detail-panel">
+                            <h3>مراحل تعلم الاختراق الأخلاقي 🛡️</h3>
+                            
+                            <div class="roadmap-phase active-phase">
+                                <div class="phase-number">01</div>
+                                <div class="phase-body">
+                                    <h4>مرحلة التأسيس (الشهر 1 - الشهر 2)</h4>
+                                    <p>التركيز على البرمجة (Python)، فهم سطر أوامر Linux، وحزم وبروتوكولات الشبكات (OSI Model).</p>
+                                    <span class="phase-badge">أنت هنا حالياً</span>
+                                </div>
+                            </div>
+
+                            <div class="roadmap-phase">
+                                <div class="phase-number">02</div>
+                                <div class="phase-body">
+                                    <h4>الأمن السيبراني وبداية الاختراق (الشهر 3 - الشهر 4)</h4>
+                                    <p>دراسة ثغرات الويب الأساسية (OWASP Top 10) على موقع PortSwigger والبدء بجمع المعلومات والتخفي.</p>
+                                </div>
+                            </div>
+
+                            <div class="roadmap-phase">
+                                <div class="phase-number">03</div>
+                                <div class="phase-body">
+                                    <h4>الأدوات والتطبيقات العملية (الشهر 5 فما فوق)</h4>
+                                    <p>تعلم استخدام Nmap للفحص، وBurp Suite لاعتراض الطلبات، وMetasploit للاستغلال الفعلي، وحل غرف TryHackMe.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Log Modal -->
+    <div class="modal-backdrop" id="add-log-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>تسجيل ما تعلمته اليوم 📝</h2>
+                <button class="btn-close" id="btn-close-modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <form id="add-log-form">
+                <div class="form-group">
+                    <label for="log-title">عنوان الدرس / الموضوع *</label>
+                    <input type="text" id="log-title" placeholder="مثال: أساسيات الـ Loops في بايثون أو أوامر صلاحيات الملفات في لينكس" required class="form-control">
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="log-category">التصنيف الرئيسي *</label>
+                        <select id="log-category" required class="form-control">
+                            <option value="" disabled selected>اختر التصنيف...</option>
+                            <option value="python">🐍 Python (برمجة)</option>
+                            <option value="linux">🐧 Linux (أنظمة)</option>
+                            <option value="network">🌐 Networks (شبكات)</option>
+                            <option value="security">🛡️ Cyber Security (أمن)</option>
+                            <option value="other">⚙️ أخرى</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="log-duration">مدة المذاكرة (بالدقائق) *</label>
+                        <input type="number" id="log-duration" min="5" max="480" placeholder="مثال: 90" required class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="log-source">رابط المصدر / المرجع (اختياري)</label>
+                    <input type="url" id="log-source" placeholder="مثال: رابط فيديو يوتيوب أو المقال الدراسي" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>تقييم مستوى فهمك للموضوع (1 - ضعيف جداً، 5 - ممتاز)</label>
+                    <div class="confidence-selector">
+                        <label class="confidence-option">
+                            <input type="radio" name="confidence" value="1">
+                            <span>1 🥱</span>
+                        </label>
+                        <label class="confidence-option">
+                            <input type="radio" name="confidence" value="2">
+                            <span>2 🤨</span>
+                        </label>
+                        <label class="confidence-option">
+                            <input type="radio" name="confidence" value="3" checked>
+                            <span>3 🙂</span>
+                        </label>
+                        <label class="confidence-option">
+                            <input type="radio" name="confidence" value="4">
+                            <span>4 😎</span>
+                        </label>
+                        <label class="confidence-option">
+                            <input type="radio" name="confidence" value="5">
+                            <span>5 🧠</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="log-notes">أهم النقاط التي تعلمتها اليوم / الملخص *</label>
+                    <textarea id="log-notes" rows="4" placeholder="- شرح موجز لما قمت به&#10;- بعض الأوامر أو الدوال الجديدة التي تعلمتها ومثال عليها&#10;- الصعوبات التي واجهتها وكيف تغلبت عليها" required class="form-control"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary">حفظ وتسجيل</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script inclusion -->
+    <script src="app.js"></script>
+</body>
+</html>
