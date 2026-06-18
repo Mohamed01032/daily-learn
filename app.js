@@ -135,6 +135,7 @@ function loadDataFromStorage() {
     }
 }
 
+// دالة الحفظ
 function saveDataToStorage() {
     localStorage.setItem('daily_learn_tracker_data', JSON.stringify(appState));
 }
